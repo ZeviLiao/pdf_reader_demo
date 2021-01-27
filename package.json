@@ -6,6 +6,7 @@
   "module": "dist/rollup-starter-project.mjs",
   "jsnext:main": "dist/rollup-starter-project.mjs",
   "scripts": {
+    "dev": "babel-node src/index.js",
     "prebuild": "eslint lib test",
     "build": "rollup -c --environment BUILD:production",
     "watch": "rollup -c -w",
@@ -31,7 +32,10 @@
     "dist"
   ],
   "homepage": "https://github.com/rollup/rollup-starter-project#readme",
-  "dependencies": {},
+  "dependencies": {
+    "pdf-image": "^2.0.0",
+    "pdf-parse": "^1.1.1"
+  },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
     "babel-plugin-external-helpers": "^6.18.0",
