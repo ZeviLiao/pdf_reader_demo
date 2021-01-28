@@ -1,10 +1,19 @@
 import { knex } from './knexDB'
 
-function udpateDB() {
+
+export function insertDB(data) {
     knex('user')
-        .where('user_id', '16')
+        .insert(data).then(result => {
+            console.log(result)
+        })
+}
+
+
+export function updateDB() {
+    knex('user')
+        .where('id', 1)
         .update({
-            user_name: 'zhang',
+            name: 'xx',
         }).then(result => {
             console.log(result)
         })
@@ -20,7 +29,7 @@ export function selectDB() {
         })
 }
 
-function purifyJson(rawData){
-    return JSON.parse(JSON.stringify(rawData, null ,2))
+function purifyJson(rawData) {
+    return JSON.parse(JSON.stringify(rawData, null, 2))
 }
 

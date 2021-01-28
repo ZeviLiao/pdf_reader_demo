@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const csv = require('csv-parser');
 
-import {selectDB} from './lib/dbUpdate'
+import {insertDB, updateDB, selectDB} from './lib/dbUpdate'
 
 let rowNumber = 0
 
@@ -31,5 +31,9 @@ function expandRows(row) {
 //         console.log('CSV file successfully processed');
 //     });
 
-
+// updateDB()
+let data = {
+    name: 'xx1',
+}
+insertDB(data)
 selectDB()
