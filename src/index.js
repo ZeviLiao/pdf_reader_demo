@@ -1,46 +1,30 @@
 
 const fs = require('fs');
 const path = require('path');
-// const pdf = require('pdf-parse');
-// var PDFImage = require("pdf-image").PDFImage;
-const pdf2jpg = require('pdf2jpg');
+const csv = require('csv-parser');
 
-// const dataBuffer = fs.readFileSync(path.resolve(__dirname, './pdf/samplepptx2.pdf'));
+let rowNumber = 0
 
-// pdf(dataBuffer).then(function (data) {
+function expandRows(row) {
+    let className = ['A','B','C','D','E','F','G']
+    className.forEach(cn => {
+        let accCount = row[cn]
+        for (let i = 0; i < accCount; i++) {
+            let newPass = Math.random().toString(36).slice(-8);
+            console.log(++rowNumber, row.schoolId + cn + ((i+1)+'').padStart(3,'0'),newPass )
+        }
+    })
+}
 
-//     // // number of pages
-//     // console.log(data.numpages);
-//     // // number of rendered pages
-//     // console.log(data.numrender);
-//     // // PDF info
-//     // console.log(data.info);
-//     // // PDF metadata
-//     // console.log(data.metadata); 
-//     // // PDF.js version
-//     // // check https://mozilla.github.io/pdf.js/getting_started/
-//     // console.log(data.version);
-//     // // PDF text
-//     // console.log(data.text); 
-
-
-//     var lines = data.text.split('\n');
-//     for (var i = 0; i < lines.length; i++) {
-//         //code here using lines[i] which will give you each line
-//         // console.log(lines[i]);
-//         if (i === 0) console.log(lines[i])
-//         if (lines[i] === ''){
-//             if (i + 1 < lines.length) {
-//                 console.log(lines[i + 1])
-//             }
-//         }
-//     }
-// });
-
-// var pdfImage = new PDFImage('./pdf/samplepptx2.pdf');
-// pdfImage.convertFile().then(function (imagePaths) {
-//   // [ /tmp/slide-0.png, /tmp/slide-1.png ]
-// });
-
-const source = fs.readFileSync(path.resolve(__dirname, './pdf/samplepptx2.pdf'));
-pdf2jpg(source).then(buffer => fs.writeFileSync('out.jpg', buffer))
+fs.createReadStream(path.resolve(__dirname, './data/startmath-csv.csv'))
+    .pipe(csv())
+    .on('data', (row) => {
+        for (var prop in row) {
+            if (!['schoolName', 'schoolId'].includes(prop))
+                row[prop] = +row[prop] ? +row[prop] : 0 // number
+        }
+        expandRows(row)
+    })
+    .on('end', () => {
+        console.log('CSV file successfully processed');
+    });
