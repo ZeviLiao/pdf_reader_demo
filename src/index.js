@@ -3,6 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const csv = require('csv-parser');
 
+import {selectDB} from './lib/dbUpdate'
+
 let rowNumber = 0
 
 function expandRows(row) {
@@ -16,15 +18,18 @@ function expandRows(row) {
     })
 }
 
-fs.createReadStream(path.resolve(__dirname, './data/startmath-csv.csv'))
-    .pipe(csv())
-    .on('data', (row) => {
-        for (var prop in row) {
-            if (!['schoolName', 'schoolId'].includes(prop))
-                row[prop] = +row[prop] ? +row[prop] : 0 // number
-        }
-        expandRows(row)
-    })
-    .on('end', () => {
-        console.log('CSV file successfully processed');
-    });
+// fs.createReadStream(path.resolve(__dirname, './data/startmath-csv.csv'))
+//     .pipe(csv())
+//     .on('data', (row) => {
+//         for (var prop in row) {
+//             if (!['schoolName', 'schoolId'].includes(prop))
+//                 row[prop] = +row[prop] ? +row[prop] : 0 // number
+//         }
+//         expandRows(row)
+//     })
+//     .on('end', () => {
+//         console.log('CSV file successfully processed');
+//     });
+
+
+selectDB()

@@ -33,7 +33,9 @@
   ],
   "homepage": "https://github.com/rollup/rollup-starter-project#readme",
   "dependencies": {
-    "csv-parser": "^3.0.0"
+    "csv-parser": "^3.0.0",
+    "knex": "^0.21.16",
+    "mysql": "^2.18.1"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
