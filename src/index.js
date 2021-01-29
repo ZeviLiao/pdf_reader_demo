@@ -21,7 +21,7 @@ function expandRows(row) {
         for (let i = 0; i < accCount; i++) {
             let newPass = Math.random().toString(36).slice(-8);
             let no = ++rowNumber
-            let acc = row.schoolId + cn + (i + '').padStart(3, '0')
+            let acc = row.schoolId + cn + ((i + 1) + '').padStart(3, '0')
             // console.log(++rowNumber, row.schoolId + cn + ((i + 1) + '').padStart(3, '0'), newPass)
             let logText = `${no}\t${acc}\t${newPass}`
             log(logText, 'acc-log.log');
