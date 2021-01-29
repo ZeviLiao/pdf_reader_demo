@@ -5,9 +5,6 @@ const csv = require('csv-parser');
 // Import.
 const log = require('log-to-file');
 
-
-
-
 import { insertDB, updateDB, selectDB } from './lib/dbUpdate'
 import { httpGet, httpPost } from './lib/httpsvc'
 
