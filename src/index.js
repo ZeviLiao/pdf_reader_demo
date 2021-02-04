@@ -8,40 +8,45 @@ const log = require('log-to-file');
 import { insertDB, updateDB, selectDB } from './lib/dbUpdate'
 import { httpGet, httpPost } from './lib/httpsvc'
 
-let rowNumber = 0
+let rowNumber = 1290 // last time phone number
 let accs = []
 
 function expandRows(row) {
     let className = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     className.forEach(cn => {
         let accCount = row[cn]
+        let start = row[cn.toLowerCase() + 's']
+        let counter = start + 1; // max 1, start from 2, 
         for (let i = 0; i < accCount; i++) {
             let newPass = Math.random().toString(36).slice(-8);
             let no = ++rowNumber
-            let acc = row.schoolId + cn + ((i + 1) + '').padStart(3, '0')
-            // console.log(++rowNumber, row.schoolId + cn + ((i + 1) + '').padStart(3, '0'), newPass)
+            let schKey = row.schoolId
+            let acc = schKey + cn + (counter + i + '').padStart(3, '0')
+            // console.log(++rowNumber, schKey + cn + ((i + 1) + '').padStart(3, '0'), newPass)
             let logText = `${no}\t${acc}\t${newPass}`
             log(logText, 'acc-log.log');
             accs.push({
                 "userAcc": acc,
                 "password": newPass,
                 "mobile": no + '',
-                "email": acc + "@startmath.cn"
+                "email": acc.toLowerCase() + "@startmath.cn"
+                // "schoolKey": schKey,
+                // "vipLevelId": cn.charCodeAt(0) - 63,
+                // "status": 'active'
             })
         }
     })
 }
 
 
-async function test() {
+async function createAccBatch() {
     // console.log(accs.length)
-    for(let i = 0; i < accs.length; i += 1) {
-        // const res = await addSuffix(texts[i]);
+    for (let i = 0; i < accs.length; i += 1) {
         var res = await httpPost(accs[i])
         console.log(accs[i]);
     }
 }
- 
+
 fs.createReadStream(path.resolve(__dirname, './data/startmath-csv.csv'))
     .pipe(csv())
     .on('data', (row) => {
@@ -50,18 +55,13 @@ fs.createReadStream(path.resolve(__dirname, './data/startmath-csv.csv'))
                 row[prop] = +row[prop] ? +row[prop] : 0 // number
         }
         expandRows(row)
-        
+
     })
     .on('end', () => {
         // console.log('CSV file successfully processed');
         console.log(accs.length)
-        // test()
+        // createAccBatch()
     });
-
-    
-
-    // test()
-    
 
 // updateDB()
 // let data = {

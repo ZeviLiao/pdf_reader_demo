@@ -7,3 +7,5 @@
 yarn dev
 
 ```
+
+createAccBatch() is main method.
