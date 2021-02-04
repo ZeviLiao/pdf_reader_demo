@@ -16,7 +16,7 @@ if (process.env.BUILD !== 'production') {
 }
 
 export default {
-  entry: 'lib/index.js',
+  entry: 'src/index.js',
   plugins: plugins,
   external: external,
   targets: [
