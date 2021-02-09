@@ -8,7 +8,7 @@ const log = require('log-to-file');
 import { insertDB, updateDB, selectDB } from './lib/dbUpdate'
 import { httpGet, httpPost } from './lib/httpsvc'
 
-let rowNumber = 1290 // last time phone number
+let rowNumber = 1473 // last time phone number
 let accs = []
 
 function expandRows(row) {
