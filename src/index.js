@@ -8,7 +8,7 @@ const log = require('log-to-file');
 import { insertDB, updateDB, selectDB } from './lib/dbUpdate'
 import { httpGet, httpPost } from './lib/httpsvc'
 
-let rowNumber = 1473 // last time phone number
+let rowNumber = 1483 // last time phone number
 let accs = []
 
 function expandRows(row) {
@@ -60,7 +60,7 @@ fs.createReadStream(path.resolve(__dirname, './data/startmath-csv.csv'))
     .on('end', () => {
         // console.log('CSV file successfully processed');
         console.log(accs.length)
-        // createAccBatch()
+        createAccBatch()
     });
 
 // updateDB()
