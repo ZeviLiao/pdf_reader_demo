@@ -33,6 +33,9 @@
   ],
   "homepage": "https://github.com/rollup/rollup-starter-project#readme",
   "dependencies": {
+    "@babel/core": "^7.13.8",
+    "@babel/preset-env": "^7.13.9",
+    "@babel/preset-react": "^7.12.13",
     "fs-extra": "^9.1.0",
     "pdf-image": "^2.0.0",
     "pdf-parse": "^1.1.1",
